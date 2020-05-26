@@ -1,8 +1,54 @@
 sensors:
-  break_beam_1:
-    type: break_beam
+  logical_camera_BinGroup1:
+    type: logical_camera
     pose:
-      xyz: [1.6, 2.25, 0.91]
-      rpy: [0, 0, 'pi']
+      xyz: [3, -1.750927, 1.82]
+      rpy: [0, 'pi/2', 'pi/2']
 
+  logical_camera_BinGroup2:
+    type: logical_camera
+    pose:
+      xyz: [5, -1.750927, 1.82]
+      rpy: [0, 'pi/2', 'pi/2']
 
+  logical_camera_BinGroup3:
+    type: logical_camera
+    pose:
+      xyz: [5, 1.750927, 1.82]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_BinGroup4:
+    type: logical_camera
+    pose:
+      xyz: [3, 1.750927, 1.82]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_Conveyor:
+    type: logical_camera
+    pose:
+      xyz: [-0.7, -1.750927, 1.82]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_AGV1:
+    type: logical_camera
+    pose:
+      xyz: [0, 7.5, 1.82]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_AGV2:
+    type: logical_camera
+    pose:
+      xyz: [0, -7.5,1.82]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_Shelf1:
+    type: logical_camera
+    pose:
+      xyz: [-3.4, 0, 2.5]
+      rpy: [0, 'pi/2', 'pi/2']
+
+  logical_camera_Shelf2:
+    type: logical_camera
+    pose:
+      xyz: [-3.4, 2.7, 2.5]
+      rpy: [0, 'pi/2', 'pi/2']
