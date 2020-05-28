@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="Notify_Shipment_Ready">
+
+	<executable package_path="ariac_flexbe_behaviors.notify_shipment_ready_sm" class="Notify_Shipment_ReadySM" />
+	<tagstring></tagstring>
+	<author>Anne van Oirschot</author>
+	<date>Wed May 27 2020</date>
+	<description>
+		AGV verzenden voor transport
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

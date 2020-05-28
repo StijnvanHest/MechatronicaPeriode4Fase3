@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="Transport_part_from_bin_to_agv">
+
+	<executable package_path="ariac_flexbe_behaviors.transport_part_from_bin_to_agv_sm" class="Transport_part_from_bin_to_agvSM" />
+	<tagstring></tagstring>
+	<author>Anne van Oirschot</author>
+	<date>Wed May 27 2020</date>
+	<description>
+		Transporteren van een part naar de AGV
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

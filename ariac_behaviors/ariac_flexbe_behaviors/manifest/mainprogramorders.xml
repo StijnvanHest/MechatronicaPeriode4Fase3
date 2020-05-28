@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="MainProgramOrders">
+
+	<executable package_path="ariac_flexbe_behaviors.mainprogramorders_sm" class="MainProgramOrdersSM" />
+	<tagstring></tagstring>
+	<author>Anne van Oirschot</author>
+	<date>Wed May 27 2020</date>
+	<description>
+		Hoofdprogramma voor het verwerken van orders
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="Notify_Shipment_Ready" />
+	<contains name="Transport_part_from_bin_to_agv" />
+
+	<!-- Available Parameters -->
+
+</behavior>
