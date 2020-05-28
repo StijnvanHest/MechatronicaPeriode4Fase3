@@ -37,11 +37,11 @@ class VacuumGripperControlState(EventState):
 		# Main purpose is to check state conditions and trigger a corresponding outcome.
 		# If no outcome is returned, the state will stay active.
 
-		if userdata.arm_id == 'arm1':
-			gripper_service = '/ariac/arm1/gripper/control'
+		if userdata.arm_id == 'right_arm':
+			gripper_service = '/ariac/right_arm/gripper/control'
 		else:
-			if userdata.arm_id == 'arm2':
-				gripper_service = '/ariac/arm2/gripper/control'
+			if userdata.arm_id == 'left_arm':
+				gripper_service = '/ariac/left_arm/gripper/control'
 			else:
 				return 'invalid_arm_id'
 
@@ -63,12 +63,12 @@ class VacuumGripperControlState(EventState):
 			# Return the response to the calling function.
 			if service_response.success == True:
 				if self._enable == True:
-					if userdata.arm_id == 'arm1':
-						status = rospy.wait_for_message('/ariac/arm1/gripper/state', VacuumGripperState)
+					if userdata.arm_id == 'right_arm':
+						status = rospy.wait_for_message('/ariac/right_arm/gripper/state', VacuumGripperState)
 						if status.attached == True:
 							return 'continue'
-					elif userdata.arm_id == 'arm2':
-						status = rospy.wait_for_message('/ariac/arm2/gripper/state', VacuumGripperState)
+					elif userdata.arm_id == 'left_arm':
+						status = rospy.wait_for_message('/ariac/left_arm/gripper/state', VacuumGripperState)
 						if status.attached == True:
 							return 'continue'
 					else:
