@@ -93,7 +93,7 @@ class ArmattachedcheckerSM(Behavior):
 			# x:439 y:152
 			OperatableStateMachine.add('SetBothArmFull',
 										ReplaceState(),
-										transitions={'done': 'LogBothArms'},
+										transitions={'done': 'BothArmsFullLOG'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'Ja_value', 'result': 'BothArmsFull'})
 
@@ -109,32 +109,33 @@ class ArmattachedcheckerSM(Behavior):
 										transitions={'done': 'Arm_id is:'},
 										autonomy={'done': Autonomy.Off})
 
-			# x:780 y:150
-			OperatableStateMachine.add('LogBothArms',
-										LogState(text="Both arms has something attached to it", severity=Logger.REPORT_HINT),
-										transitions={'done': 'finished'},
-										autonomy={'done': Autonomy.Off})
-
 			# x:440 y:88
 			OperatableStateMachine.add('ResetBothArmFull',
 										ReplaceState(),
 										transitions={'done': 'SetArmLeft'},
 										autonomy={'done': Autonomy.Off},
-										remapping={'value': 'Ja_value', 'result': 'BothArmsFull'})
+										remapping={'value': 'Nee_value', 'result': 'BothArmsFull'})
 
 			# x:440 y:28
 			OperatableStateMachine.add('ResetBothArmFull_2',
 										ReplaceState(),
 										transitions={'done': 'SetArmRight'},
 										autonomy={'done': Autonomy.Off},
-										remapping={'value': 'Ja_value', 'result': 'BothArmsFull'})
+										remapping={'value': 'Nee_value', 'result': 'BothArmsFull'})
 
 			# x:944 y:25
 			OperatableStateMachine.add('Arm_id is:',
 										LogKeyState(text="The chosen arm_id is:{}", severity=Logger.REPORT_HINT),
-										transitions={'done': 'finished'},
+										transitions={'done': 'BothArmsFullLOG'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'data': 'ARMidMAIN'})
+
+			# x:1046 y:103
+			OperatableStateMachine.add('BothArmsFullLOG',
+										LogKeyState(text='Zijn beide armen vol: {}', severity=Logger.REPORT_HINT),
+										transitions={'done': 'finished'},
+										autonomy={'done': Autonomy.Off},
+										remapping={'data': 'BothArmsFull'})
 
 
 		return _state_machine
