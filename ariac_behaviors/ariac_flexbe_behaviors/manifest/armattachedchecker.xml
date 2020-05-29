@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="Armattachedchecker">
+
+	<executable package_path="ariac_flexbe_behaviors.armattachedchecker_sm" class="ArmattachedcheckerSM" />
+	<tagstring></tagstring>
+	<author>Stijn van Hest</author>
+	<date>Thu May 28 2020</date>
+	<description>
+		Deze behaivoir check of de armen allebei iets vast heeft, als dat niet zo is zet hij de arm_id naar de arm die nog niks vast heeft
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>
