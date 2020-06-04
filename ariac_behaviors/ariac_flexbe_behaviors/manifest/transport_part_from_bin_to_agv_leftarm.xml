@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<behavior name="Transport_part_from_bin_to_agv">
+<behavior name="Transport_part_from_bin_to_agv_LeftArm">
 
-	<executable package_path="ariac_flexbe_behaviors.transport_part_from_bin_to_agv_sm" class="Transport_part_from_bin_to_agvSM" />
+	<executable package_path="ariac_flexbe_behaviors.transport_part_from_bin_to_agv_leftarm_sm" class="Transport_part_from_bin_to_agv_LeftArmSM" />
 	<tagstring></tagstring>
 	<author>Anne van Oirschot</author>
 	<date>Wed May 27 2020</date>
@@ -12,8 +12,8 @@
 
 
 	<!-- Contained Behaviors -->
-	<contains name="Path_Gear_Red" />
-	<contains name="Path_Shelves" />
+	<contains name="Path_Left_Bins" />
+	<contains name="Path_Shelves_Left" />
 
 	<!-- Available Parameters -->
 

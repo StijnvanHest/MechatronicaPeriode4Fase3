@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="PlaceOnAgv_LastProduct">
+
+	<executable package_path="ariac_flexbe_behaviors.placeonagv_lastproduct_sm" class="PlaceOnAgv_LastProductSM" />
+	<tagstring></tagstring>
+	<author>Anne van Oirschot</author>
+	<date>Mon Jun 01 2020</date>
+	<description>
+		Product plaatsen op de juiste AGV
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

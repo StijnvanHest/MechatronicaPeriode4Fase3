@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="Path_Gear_Red">
+
+	<executable package_path="ariac_flexbe_behaviors.path_gear_red_sm" class="Path_Gear_RedSM" />
+	<tagstring></tagstring>
+	<author>Anne van Oirschot</author>
+	<date>Thu May 28 2020</date>
+	<description>
+		Pakken van het Gear part red om te verplaatsen in op de AGV
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>
