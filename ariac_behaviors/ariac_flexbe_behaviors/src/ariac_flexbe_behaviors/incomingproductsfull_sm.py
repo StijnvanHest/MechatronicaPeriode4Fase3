@@ -61,7 +61,7 @@ class IncomingproductsFULLSM(Behavior):
 
 
 	def create(self):
-		# x:2392 y:139, x:415 y:533
+		# x:1680 y:94, x:415 y:533
 		_state_machine = OperatableStateMachine(outcomes=['finished', 'failed'])
 		_state_machine.userdata.move_groupR = 'Right_Arm'
 		_state_machine.userdata.move_group_prefix = '/ariac/gantry'
@@ -112,7 +112,7 @@ class IncomingproductsFULLSM(Behavior):
 										autonomy={'finished': Autonomy.Inherit, 'failed': Autonomy.Inherit},
 										remapping={'ARMidMAIN': 'ARMidMAIN', 'PartPose': 'PartPose', 'PartOffset': 'PartOffset', 'PartTYPE': 'PartTYPE', 'exactparttype': 'exactparttype'})
 
-			# x:2162 y:132
+			# x:1542 y:89
 			OperatableStateMachine.add('stopass',
 										EndAssignment(),
 										transitions={'continue': 'finished'},
@@ -145,7 +145,7 @@ class IncomingproductsFULLSM(Behavior):
 										autonomy={'finished': Autonomy.Inherit, 'failed': Autonomy.Inherit},
 										remapping={'ARMidMAIN': 'ARMidMAIN', 'PartPose': 'PartPose', 'PartOffset': 'PartOffset', 'exactparttype': 'exactparttype', 'PartTYPE': 'PartTYPE', 'RightArmItem': 'RightArmItem', 'LeftArmItem': 'LeftArmItem'})
 
-			# x:840 y:42
+			# x:757 y:46
 			OperatableStateMachine.add('ToRotationStation',
 										SrdfStateToMoveitAriac(),
 										transitions={'reached': 'GoToPreDrop', 'planning_failed': 'TransfertoDropFailed', 'control_failed': 'TransfertoDropFailed', 'param_error': 'TransfertoDropFailed'},
@@ -164,20 +164,20 @@ class IncomingproductsFULLSM(Behavior):
 										transitions={'done': 'failed'},
 										autonomy={'done': Autonomy.Off})
 
-			# x:824 y:318
+			# x:749 y:354
 			OperatableStateMachine.add('TransfertoDropFailed',
 										WaitState(wait_time=2),
 										transitions={'done': 'failed'},
 										autonomy={'done': Autonomy.Off})
 
-			# x:1061 y:42
+			# x:934 y:41
 			OperatableStateMachine.add('GoToPreDrop',
 										self.use_behavior(GoToPreDropSM, 'GoToPreDrop'),
 										transitions={'finished': 'DropItemsInBIN', 'failed': 'TransfertoDropFailed'},
 										autonomy={'finished': Autonomy.Inherit, 'failed': Autonomy.Inherit},
 										remapping={'RightArmItem': 'RightArmItem', 'LeftArmItem': 'LeftArmItem', 'GantryLocation': 'GantryLocation', 'USEarmID': 'USEarmID'})
 
-			# x:1830 y:177
+			# x:1323 y:153
 			OperatableStateMachine.add('RoundCheck',
 										EqualState(),
 										transitions={'true': 'stopass', 'false': 'ADDround'},
@@ -191,14 +191,14 @@ class IncomingproductsFULLSM(Behavior):
 										autonomy={'done': Autonomy.Off},
 										remapping={'value_a': 'Round_nrMAIN', 'value_b': 'ONE', 'result': 'Round_nrMAIN'})
 
-			# x:1403 y:114
+			# x:1116 y:42
 			OperatableStateMachine.add('DropItemsInBIN',
 										self.use_behavior(DropItemsInBINSM, 'DropItemsInBIN'),
 										transitions={'Next arm': 'GoToPreDrop', 'failed': 'TransfertoDropFailed', 'BothArmsEmpty': 'RoundCheck', 'BinVol': 'LogBinVol'},
 										autonomy={'Next arm': Autonomy.Inherit, 'failed': Autonomy.Inherit, 'BothArmsEmpty': Autonomy.Inherit, 'BinVol': Autonomy.Inherit},
 										remapping={'USEarmID': 'USEarmID', 'GantryLocation': 'GantryLocation', 'RightArmItem': 'RightArmItem', 'LeftArmItem': 'LeftArmItem'})
 
-			# x:1759 y:40
+			# x:1323 y:46
 			OperatableStateMachine.add('LogBinVol',
 										LogState(text="Een van de bins is vol", severity=Logger.REPORT_HINT),
 										transitions={'done': 'stopass'},
