@@ -47,7 +47,11 @@ class VacuumGripperControlState(EventState):
 
 	    	rospy.loginfo("Waiting for service...")
 	    	rospy.wait_for_service(gripper_service) # use arm2 for controlling gripper on second manipulator
-	    	try:
+	    	
+		counter = 0
+		try:
+			counter = (counter + 1)
+			rospy.loginfo(counter)
 			# Create a service proxy.
 			vacuum_gripper_control = rospy.ServiceProxy(gripper_service, VacuumGripperControl)
 
@@ -71,8 +75,9 @@ class VacuumGripperControlState(EventState):
 						status = rospy.wait_for_message('/ariac/gantry/left_arm/gripper/state', VacuumGripperState)
 						if status.attached == True:
 							return 'continue'
-					else:
+					elif counter == 1:
 						return 'failed'
+						pass
 				else:
 					return 'continue'
 			else:
