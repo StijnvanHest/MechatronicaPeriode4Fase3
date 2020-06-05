@@ -68,7 +68,7 @@ class DetectFirstPartCameraAriacState(EventState):
 
 	<= continue 				if the pose of the part has been succesfully obtained
 	<= failed 				otherwise
-
+	<= not_found				Camera did not find your given parts
 	'''
 
 	def __init__(self, part_list, time_out = 0.5):
@@ -117,7 +117,7 @@ class DetectFirstPartCameraAriacState(EventState):
 						return 'continue'
 			userdata.pose = None
 			userdata.part = None
-			return 'failed'
+			return 'not_found'
 
 	def on_enter(self, userdata):
 		# This method is called when the state becomes active, i.e. a transition from another state to this one is taken.
