@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="DropItemsInBIN">
+
+	<executable package_path="ariac_flexbe_behaviors.dropitemsinbin_sm" class="DropItemsInBINSM" />
+	<tagstring>Drop</tagstring>
+	<author>Stijn van Hest</author>
+	<date>Mon Jun 01 2020</date>
+	<description>
+		This behavoir drops both items in the bins
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="StartUP" />
+
+	<!-- Available Parameters -->
+
+</behavior>
