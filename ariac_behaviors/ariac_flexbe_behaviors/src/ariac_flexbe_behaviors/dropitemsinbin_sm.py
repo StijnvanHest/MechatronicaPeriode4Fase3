@@ -53,7 +53,7 @@ class DropItemsInBINSM(Behavior):
 
 
 	def create(self):
-		# x:2425 y:70, x:1043 y:385, x:2422 y:460, x:1682 y:414
+		# x:1249 y:486, x:614 y:299, x:1274 y:293, x:1759 y:363
 		_state_machine = OperatableStateMachine(outcomes=['Next arm', 'failed', 'BothArmsEmpty', 'BinVol'], input_keys=['USEarmID', 'GantryLocation', 'RightArmItem', 'LeftArmItem'], output_keys=['RightArmItem', 'LeftArmItem'])
 		_state_machine.userdata.arm_idL = 'left_arm'
 		_state_machine.userdata.arm_idR = 'right_arm'
@@ -102,307 +102,307 @@ class DropItemsInBINSM(Behavior):
 
 
 		with _state_machine:
-			# x:46 y:59
+			# x:47 y:31
 			OperatableStateMachine.add('GasketLocation',
 										EqualState(),
 										transitions={'true': 'GetGasketBinPosition', 'false': 'PistonLocation'},
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'GasketLocation', 'value_b': 'GantryLocation'})
 
-			# x:229 y:59
+			# x:216 y:33
 			OperatableStateMachine.add('GetGasketBinPosition',
 										GetObjectPoseState(object_frame='bin12_frame', ref_frame='world'),
 										transitions={'continue': 'SetGasketBinXOffset', 'failed': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off},
 										remapping={'pose': 'DropPose'})
 
-			# x:212 y:697
+			# x:208 y:544
 			OperatableStateMachine.add('GetPistonBinPosition',
 										GetObjectPoseState(object_frame='bin1_frame', ref_frame='world'),
 										transitions={'continue': 'SetPistonBinYOffset', 'failed': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off},
 										remapping={'pose': 'DropPose'})
 
-			# x:2308 y:231
+			# x:1363 y:346
 			OperatableStateMachine.add('checkLeftArmAttached',
 										CheckGripperattached(),
 										transitions={'True': 'Next arm', 'False': 'BothArmsEmpty', 'invalid_arm_id': 'failed'},
 										autonomy={'True': Autonomy.Off, 'False': Autonomy.Off, 'invalid_arm_id': Autonomy.Off},
 										remapping={'arm_id': 'arm_idL'})
 
-			# x:1094 y:48
+			# x:1028 y:38
 			OperatableStateMachine.add('GripperUITRechts',
 										VacuumGripperControlState(enable=False),
 										transitions={'continue': 'ResetRightArmItem', 'failed': 'GoToDropRight', 'invalid_arm_id': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off, 'invalid_arm_id': Autonomy.Off},
 										remapping={'arm_id': 'arm_idR'})
 
-			# x:897 y:49
+			# x:848 y:38
 			OperatableStateMachine.add('GoToDropRight',
 										MoveitToJointsDynAriacState(),
 										transitions={'reached': 'GripperUITRechts', 'planning_failed': 'GripperUITRechts', 'control_failed': 'GripperUITRechts'},
 										autonomy={'reached': Autonomy.Off, 'planning_failed': Autonomy.Off, 'control_failed': Autonomy.Off},
 										remapping={'move_group_prefix': 'move_group_prefix', 'move_group': 'move_groupR', 'action_topic': 'action_topic', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:1971 y:230
+			# x:1563 y:393
 			OperatableStateMachine.add('StartUP',
 										self.use_behavior(StartUPSM, 'StartUP'),
 										transitions={'finished': 'checkRightArmAttached', 'failed': 'failed'},
 										autonomy={'finished': Autonomy.Inherit, 'failed': Autonomy.Inherit})
 
-			# x:1280 y:44
+			# x:1203 y:37
 			OperatableStateMachine.add('ResetRightArmItem',
 										ReplaceState(),
 										transitions={'done': 'AddX2offsetGasket'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'Niks', 'result': 'RightArmItem'})
 
-			# x:1086 y:120
+			# x:1029 y:100
 			OperatableStateMachine.add('GripperUITLinks',
 										VacuumGripperControlState(enable=False),
 										transitions={'continue': 'ResetLeftArmItem', 'failed': 'GoToDropLeft', 'invalid_arm_id': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off, 'invalid_arm_id': Autonomy.Off},
 										remapping={'arm_id': 'arm_idL'})
 
-			# x:43 y:696
+			# x:44 y:542
 			OperatableStateMachine.add('PistonLocation',
 										EqualState(),
 										transitions={'true': 'GetPistonBinPosition', 'false': 'failed'},
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'PistonLocation', 'value_b': 'GantryLocation'})
 
-			# x:896 y:116
+			# x:848 y:98
 			OperatableStateMachine.add('GoToDropLeft',
 										MoveitToJointsDynAriacState(),
 										transitions={'reached': 'GripperUITLinks', 'planning_failed': 'GripperUITLinks', 'control_failed': 'GripperUITLinks'},
 										autonomy={'reached': Autonomy.Off, 'planning_failed': Autonomy.Off, 'control_failed': Autonomy.Off},
 										remapping={'move_group_prefix': 'move_group_prefix', 'move_group': 'move_groupL', 'action_topic': 'action_topic', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:1263 y:123
+			# x:1203 y:100
 			OperatableStateMachine.add('ResetLeftArmItem',
 										ReplaceState(),
 										transitions={'done': 'AddX2offsetGasket'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'Niks', 'result': 'LeftArmItem'})
 
-			# x:2147 y:229
+			# x:1359 y:423
 			OperatableStateMachine.add('checkRightArmAttached',
 										CheckGripperattached(),
 										transitions={'True': 'Next arm', 'False': 'checkLeftArmAttached', 'invalid_arm_id': 'failed'},
 										autonomy={'True': Autonomy.Off, 'False': Autonomy.Off, 'invalid_arm_id': Autonomy.Off},
 										remapping={'arm_id': 'arm_idR'})
 
-			# x:760 y:46
+			# x:708 y:35
 			OperatableStateMachine.add('ComputeRightDrop',
 										ComputeBeltDrop(joint_names=['right_shoulder_pan_joint', 'right_shoulder_lift_joint', 'right_elbow_joint', 'right_wrist_1_joint', 'right_wrist_2_joint', 'right_wrist_3_joint']),
 										transitions={'continue': 'GoToDropRight', 'failed': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off},
 										remapping={'move_group': 'move_groupR', 'move_group_prefix': 'move_group_prefix', 'tool_link': 'tool_linkR', 'pose': 'DropPose', 'offset': 'SideZoffset', 'SideYoffset': 'SideYoffset', 'SideXoffset': 'SideXoffset', 'rotation': 'rotation', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:759 y:123
+			# x:706 y:99
 			OperatableStateMachine.add('ComputeLeftDrop',
 										ComputeBeltDrop(joint_names=['left_shoulder_pan_joint', 'left_shoulder_lift_joint', 'left_elbow_joint', 'left_wrist_1_joint', 'left_wrist_2_joint', 'left_wrist_3_joint']),
 										transitions={'continue': 'GoToDropLeft', 'failed': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off},
 										remapping={'move_group': 'move_groupL', 'move_group_prefix': 'move_group_prefix', 'tool_link': 'tool_linkL', 'pose': 'DropPose', 'offset': 'SideZoffset', 'SideYoffset': 'SideYoffset', 'SideXoffset': 'SideXoffset', 'rotation': 'rotation', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:410 y:12
+			# x:365 y:34
 			OperatableStateMachine.add('SetGasketBinXOffset',
 										ReplaceState(),
 										transitions={'done': 'SetGasketBinYOffset'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'offsetXGasket', 'result': 'SideXoffset'})
 
-			# x:409 y:76
+			# x:362 y:99
 			OperatableStateMachine.add('SetGasketBinYOffset',
 										ReplaceState(),
 										transitions={'done': 'RechterARM?2'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'offsetYGasket', 'result': 'SideYoffset'})
 
-			# x:359 y:789
+			# x:350 y:606
 			OperatableStateMachine.add('SetPistonBinXOffset',
 										ReplaceState(),
 										transitions={'done': 'RechterARM?'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'offsetXPiston', 'result': 'SideXoffset'})
 
-			# x:365 y:699
+			# x:352 y:544
 			OperatableStateMachine.add('SetPistonBinYOffset',
 										ReplaceState(),
 										transitions={'done': 'SetPistonBinXOffset'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'offsetYPiston', 'result': 'SideYoffset'})
 
-			# x:1523 y:45
+			# x:1378 y:35
 			OperatableStateMachine.add('AddX2offsetGasket',
 										AddNumericState(),
 										transitions={'done': 'CheckGasketRows'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value_a': 'offsetXGasket', 'value_b': 'GasketOffset', 'result': 'offsetXGasket'})
 
-			# x:1521 y:100
+			# x:1378 y:98
 			OperatableStateMachine.add('CheckGasketRows',
 										EqualState(),
 										transitions={'true': 'ResetGasketRow', 'false': 'AddGasketRound'},
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'GasketRound', 'value_b': 'RowTarget'})
 
-			# x:1519 y:160
+			# x:1376 y:158
 			OperatableStateMachine.add('ResetGasketRow',
 										ReplaceState(),
 										transitions={'done': 'AddYoffsetGasket'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'Zero_Value', 'result': 'offsetXGasket'})
 
-			# x:1523 y:222
+			# x:1373 y:220
 			OperatableStateMachine.add('AddYoffsetGasket',
 										AddNumericState(),
-										transitions={'done': 'CheckGasketRound'},
+										transitions={'done': 'AddGasketRound'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value_a': 'GasketOffset', 'value_b': 'offsetYGasket', 'result': 'offsetYGasket'})
 
-			# x:1699 y:46
+			# x:1551 y:37
 			OperatableStateMachine.add('AddGasketRound',
 										AddNumericState(),
 										transitions={'done': 'CheckGasketRound'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value_a': 'One_value', 'value_b': 'GasketRound', 'result': 'GasketRound'})
 
-			# x:1698 y:112
+			# x:1551 y:102
 			OperatableStateMachine.add('CheckGasketRound',
 										EqualState(),
 										transitions={'true': 'ResetGasketRound', 'false': 'BackToSH3'},
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'GasketRound', 'value_b': 'RoundTarget'})
 
-			# x:1698 y:197
+			# x:1717 y:103
 			OperatableStateMachine.add('ResetGasketRound',
 										ReplaceState(),
 										transitions={'done': 'BinVol'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'Zero_Value', 'result': 'offsetYGasket'})
 
-			# x:578 y:81
+			# x:534 y:33
 			OperatableStateMachine.add('RechterARM?2',
 										EqualState(),
 										transitions={'true': 'ComputeRightDrop', 'false': 'ComputeLeftDrop'},
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'USEarmID', 'value_b': 'arm_idR'})
 
-			# x:558 y:692
+			# x:518 y:544
 			OperatableStateMachine.add('RechterARM?',
 										EqualState(),
 										transitions={'true': 'ComputeRightDrop_2', 'false': 'ComputeLeftDrop_2'},
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'USEarmID', 'value_b': 'arm_idR'})
 
-			# x:766 y:699
+			# x:689 y:544
 			OperatableStateMachine.add('ComputeRightDrop_2',
 										ComputeBeltDrop(joint_names=['right_shoulder_pan_joint', 'right_shoulder_lift_joint', 'right_elbow_joint', 'right_wrist_1_joint', 'right_wrist_2_joint', 'right_wrist_3_joint']),
 										transitions={'continue': 'GoToDropRight_2', 'failed': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off},
 										remapping={'move_group': 'move_groupR', 'move_group_prefix': 'move_group_prefix', 'tool_link': 'tool_linkR', 'pose': 'DropPose', 'offset': 'SideZoffset', 'SideYoffset': 'SideYoffset', 'SideXoffset': 'SideXoffset', 'rotation': 'rotation', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:747 y:820
+			# x:688 y:609
 			OperatableStateMachine.add('ComputeLeftDrop_2',
 										ComputeBeltDrop(joint_names=['left_shoulder_pan_joint', 'left_shoulder_lift_joint', 'left_elbow_joint', 'left_wrist_1_joint', 'left_wrist_2_joint', 'left_wrist_3_joint']),
 										transitions={'continue': 'GoToDropLeft_2', 'failed': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off},
 										remapping={'move_group': 'move_groupL', 'move_group_prefix': 'move_group_prefix', 'tool_link': 'tool_linkL', 'pose': 'DropPose', 'offset': 'SideZoffset', 'SideYoffset': 'SideYoffset', 'SideXoffset': 'SideXoffset', 'rotation': 'rotation', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:920 y:692
+			# x:836 y:545
 			OperatableStateMachine.add('GoToDropRight_2',
 										MoveitToJointsDynAriacState(),
 										transitions={'reached': 'GripperUITRechts_2', 'planning_failed': 'GripperUITRechts_2', 'control_failed': 'GripperUITRechts_2'},
 										autonomy={'reached': Autonomy.Off, 'planning_failed': Autonomy.Off, 'control_failed': Autonomy.Off},
 										remapping={'move_group_prefix': 'move_group_prefix', 'move_group': 'move_groupR', 'action_topic': 'action_topic', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:915 y:817
+			# x:834 y:607
 			OperatableStateMachine.add('GoToDropLeft_2',
 										MoveitToJointsDynAriacState(),
 										transitions={'reached': 'GripperUITLinks_2', 'planning_failed': 'GripperUITLinks_2', 'control_failed': 'GripperUITLinks_2'},
 										autonomy={'reached': Autonomy.Off, 'planning_failed': Autonomy.Off, 'control_failed': Autonomy.Off},
 										remapping={'move_group_prefix': 'move_group_prefix', 'move_group': 'move_groupL', 'action_topic': 'action_topic', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:1097 y:698
+			# x:1008 y:547
 			OperatableStateMachine.add('GripperUITRechts_2',
 										VacuumGripperControlState(enable=False),
 										transitions={'continue': 'ResetRightArmItem_2', 'failed': 'GoToDropRight_2', 'invalid_arm_id': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off, 'invalid_arm_id': Autonomy.Off},
 										remapping={'arm_id': 'arm_idR'})
 
-			# x:1099 y:814
+			# x:1008 y:606
 			OperatableStateMachine.add('GripperUITLinks_2',
 										VacuumGripperControlState(enable=False),
 										transitions={'continue': 'ResetLeftArmItem_2', 'failed': 'GoToDropLeft_2', 'invalid_arm_id': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off, 'invalid_arm_id': Autonomy.Off},
 										remapping={'arm_id': 'arm_idL'})
 
-			# x:1275 y:697
+			# x:1173 y:549
 			OperatableStateMachine.add('ResetRightArmItem_2',
 										ReplaceState(),
 										transitions={'done': 'AddX2offsetPiston'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'Niks', 'result': 'RightArmItem'})
 
-			# x:1277 y:816
+			# x:1173 y:607
 			OperatableStateMachine.add('ResetLeftArmItem_2',
 										ReplaceState(),
 										transitions={'done': 'AddX2offsetPiston'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'Niks', 'result': 'LeftArmItem'})
 
-			# x:1498 y:688
+			# x:1343 y:550
 			OperatableStateMachine.add('AddX2offsetPiston',
 										AddNumericState(),
 										transitions={'done': 'CheckPistonRows'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value_a': 'offsetXPiston', 'value_b': 'PistonOffset', 'result': 'offsetXPiston'})
 
-			# x:1799 y:736
+			# x:1517 y:602
 			OperatableStateMachine.add('CheckPistonRound',
 										EqualState(),
 										transitions={'true': 'ResetPistonRound', 'false': 'StartUP'},
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'PistonRound', 'value_b': 'RoundTarget'})
 
-			# x:1496 y:761
+			# x:1343 y:615
 			OperatableStateMachine.add('CheckPistonRows',
 										EqualState(),
 										transitions={'true': 'ResetPistonRow', 'false': 'AddPistonRound'},
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'PistonRound', 'value_b': 'RowTarget'})
 
-			# x:1521 y:897
+			# x:1342 y:676
 			OperatableStateMachine.add('ResetPistonRow',
 										ReplaceState(),
 										transitions={'done': 'AddYoffsetPiston'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'Zero_Value', 'result': 'offsetXPiston'})
 
-			# x:1519 y:959
+			# x:1340 y:735
 			OperatableStateMachine.add('AddYoffsetPiston',
 										AddNumericState(),
 										transitions={'done': 'AddPistonRound'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value_a': 'PistonOffset', 'value_b': 'offsetYPiston', 'result': 'offsetYPiston'})
 
-			# x:1800 y:661
+			# x:1514 y:669
 			OperatableStateMachine.add('AddPistonRound',
 										AddNumericState(),
 										transitions={'done': 'CheckPistonRound'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value_a': 'One_value', 'value_b': 'PistonRound', 'result': 'PistonRound'})
 
-			# x:1811 y:860
+			# x:1688 y:602
 			OperatableStateMachine.add('ResetPistonRound',
 										ReplaceState(),
 										transitions={'done': 'BinVol'},
 										autonomy={'done': Autonomy.Off},
 										remapping={'value': 'Zero_Value', 'result': 'offsetYPiston'})
 
-			# x:1954 y:43
+			# x:1559 y:228
 			OperatableStateMachine.add('BackToSH3',
 										SrdfStateToMoveitAriac(),
 										transitions={'reached': 'StartUP', 'planning_failed': 'failed', 'control_failed': 'failed', 'param_error': 'failed'},
