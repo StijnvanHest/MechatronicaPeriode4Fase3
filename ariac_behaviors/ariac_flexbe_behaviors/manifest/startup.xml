@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="StartUP">
+
+	<executable package_path="ariac_flexbe_behaviors.startup_sm" class="StartUPSM" />
+	<tagstring>startup</tagstring>
+	<author>Stijn van Hest</author>
+	<date>Fri May 29 2020</date>
+	<description>
+		This is a simple startup behaivor
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="IncomingproductsFULL">
+
+	<executable package_path="ariac_flexbe_behaviors.incomingproductsfull_sm" class="IncomingproductsFULLSM" />
+	<tagstring>FullProgram</tagstring>
+	<author>Stijn van Hest</author>
+	<date>Tue May 26 2020</date>
+	<description>
+		Vul hier je behaivor in en test hem los
+	</description>
+
+
+	<!-- Contained Behaviors -->
+	<contains name="Conveyor_State" />
+	<contains name="Armattachedchecker" />
+	<contains name="StartUP" />
+	<contains name="BeltPickUP" />
+	<contains name="GoToPreDrop" />
+	<contains name="DropItemsInBIN" />
+
+	<!-- Available Parameters -->
+
+</behavior>

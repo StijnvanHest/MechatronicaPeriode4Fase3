@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="Conveyor_State">
+
+	<executable package_path="ariac_flexbe_behaviors.conveyor_state_sm" class="Conveyor_StateSM" />
+	<tagstring></tagstring>
+	<author>Stijn van Hest</author>
+	<date>Tue May 26 2020</date>
+	<description>
+		Dit is een state die de conveyor aanzet en uitzet. Ook worden de informatie van de camera doorgegeven
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="BeltPickUP">
+
+	<executable package_path="ariac_flexbe_behaviors.beltpickup_sm" class="BeltPickUPSM" />
+	<tagstring>Pick</tagstring>
+	<author>Stijn van Hest</author>
+	<date>Fri May 29 2020</date>
+	<description>
+		This is a behaivor that picks a part of the belt
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>
